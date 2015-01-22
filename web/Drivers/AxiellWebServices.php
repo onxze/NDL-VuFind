@@ -531,6 +531,9 @@ class AxiellWebServices implements DriverInterface
         $result = $this->doSOAPRequest($this->patron_wsdl, 'getPatronInformation', $functionResult, $username, array('patronInformationParam' => array('arenaMember' => $this->arenaMember, 'user' => $username, 'password' => $password, 'language' => $this->getLanguage())));
 
         if (PEAR::isError($result)) {
+            if ($result->getMessage() == 'authentication_error_invalid') {
+                return null;
+            }
             return $result;
         }
 
@@ -1407,16 +1410,16 @@ class AxiellWebServices implements DriverInterface
                 file_put_contents($this->durationLogPrefix . '_' . $function . '.log', round(microtime(true) - $startTime, 4) . "\n", FILE_APPEND);
             }
 
-            if ($this->verbose) {
-                $this->debugLog("$function Request: " . $this->formatXML($client->__getLastRequest()));
-                $this->debugLog("$function Response: " . $this->formatXML($client->__getLastResponse()));
-            }
-
             $statusAWS = $result->$functionResult->status;
 
             if ($statusAWS->type != 'ok') {
                 $message = $this->handleError($function, $statusAWS->message, $id, $client);
                 return new PEAR_Error($message);
+            }
+
+            if ($this->verbose) {
+                $this->debugLog("$function Request: " . $this->formatXML($client->__getLastRequest()));
+                $this->debugLog("$function Response: " . $this->formatXML($client->__getLastResponse()));
             }
 
             return $result;
