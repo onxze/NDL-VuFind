@@ -362,6 +362,9 @@ class UserAccount
             $account->home_library = $user->home_library;
             $account->created = date('Y-m-d h:i:s');
             $account->insert();
+        } else if ($account->cat_password != $user->cat_password) {
+            $account->cat_password = $user->cat_password;
+            $account->update();
         }
     }
 
