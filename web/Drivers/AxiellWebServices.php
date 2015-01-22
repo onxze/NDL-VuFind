@@ -1475,6 +1475,7 @@ class AxiellWebServices implements DriverInterface
             'InvalidBorrCard'        => 'authentication_error_invalid',
             'BackendError'           => 'catalog_connection_failed',
             'ReservationDenied'      => 'hold_error_blocked',
+            'BlockedBorrCard'        => 'catalog_connection_patron_blocked',
 
             // Default system status error messages for different functions
             'addReservation'         => 'hold_error_system',
