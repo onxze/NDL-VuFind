@@ -348,7 +348,6 @@
     {include file='Additions/general-post-body.tpl'}
     {* /NDLBlankInclude *}
 
-  </body>
   {if !$showTopSearchBox}
     {literal}
       <script type="text/javascript">
@@ -358,7 +357,7 @@
       </script>
     {/literal}
   {/if}
-    
+  </body>
 </html>
 {/if}
 

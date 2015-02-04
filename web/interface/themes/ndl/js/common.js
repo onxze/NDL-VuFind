@@ -21,6 +21,12 @@ $.validator.addMethod("phoneUS", function(phone_number, element) {
 
 
 $(document).ready(function(){
+    // Remove Facebook anchors from URL in order 
+    // to prevent jquery.ui.tabs to use invalid selectors.  
+    var hash = document.location.hash;
+    if (hash.indexOf('.facebook') !== -1) {
+      document.location.hash = '';
+    }
 
     // initialize autocomplete
     initAutocomplete();    

@@ -2,7 +2,7 @@ $(document).ready(function() {
     $(".imagePopup-trigger").click(function(e) {
         e.preventDefault();
         $("a[href='" + $(this).attr('href') + "']").eq(0).click();
-     });
+     });    
 });
 
 $(document).ready(function() {
@@ -69,6 +69,11 @@ $(document).ready(function() {
                     
                     return false;                                      
                 });
+
+                // Prevent navigation button CSS-transitions on touch-devices
+                if (isTouchDevice()) {
+                    $(".mfp-container .mfp-arrow-right, .mfp-container .mfp-arrow-left").addClass('touchDevice');
+                }
             },
             resize: function() {
                 resizeImagePopupContent();

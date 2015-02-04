@@ -23,7 +23,7 @@
                   {$availableCount} {translate text="axiell_issues"} {translate text="axiell_available"}
                 {/if}
               {else} 
-                {translate text="axiell_available_from"} {$branchCount} {translate text="axiell_branches_alt"}
+                {translate text="axiell_available_from"} {$availableCount} {translate text="axiell_branches_alt"}
               {/if}
           </span>
         {else}
@@ -31,7 +31,7 @@
             <span class="availability checkedout">{translate text="status_Charged"}
               <span class="duedate">{translate text="Due Date"} {$closestDueDate}</span>
             </span>
-          {elseif $itemStatusText == 'On Reference Desk'}
+          {elseif $itemStatusText == $referenceDeskStatus}
             <span class="availability available">{translate text="status_`$itemStatusText`"}</span>
           {else}
             <span class="availability checkedout">{translate text="status_`$itemStatusText`"}</span>
@@ -67,7 +67,7 @@
             {foreach from=$location.holdings item=holding name=holding}
               <tr{if $collapseBranch} class="collapsed"{/if}>
                 <td class="copyNumber">
-                  <span class="holdingText indent {if $holding.availability || $holding.status=="On Reference Desk"}available{else}checkedout{/if}">
+                  <span class="holdingText indent {if $holding.availability || $holding.status==$referenceDeskStatus}available{else}checkedout{/if}">
                     {if $journal}{$holding.organisation}, {/if}{$holding.branch}, {$holding.department}{if $holding.location}, {$holding.location}{/if}
                   </span>
                 </td>

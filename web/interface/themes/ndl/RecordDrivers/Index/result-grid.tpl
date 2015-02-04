@@ -4,7 +4,7 @@
     <div class="imagelinks">
     {foreach from=$summImages item=desc name=imgLoop}
     {if $smarty.foreach.imgLoop.iteration <= 5}
-      <a data-id="{$summId|escape:"url"}" class="title imagePopup" href="{$path}/AJAX/JSON?method=getImagePopup&amp;id={$summId|escape:"url"}&amp;isn={$summISBN|escape:"url"}&amp;index={$smarty.foreach.imgLoop.iteration-1}&amp;size=large"  onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/AJAX/JSON?method=getImagePopup&id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/AJAX/JSON?method=getImagePopup&id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;" rel="gallery" />
+      <a data-id="{$summId|escape:"url"}" class="title imagePopup" href="{$path}/AJAX/JSON?method=getImagePopup&amp;id={$summId|escape:"url"}&amp;isn={$summISBN|escape:"url"}&amp;index={$smarty.foreach.imgLoop.iteration-1}&amp;size=large"  onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/AJAX/JSON?method=getImagePopup&id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/AJAX/JSON?method=getImagePopup&id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;" />
          {if $smarty.foreach.imgLoop.iteration > 4}
             &hellip;
          {else}
@@ -46,7 +46,7 @@
     <div class="resultNoImage format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}"></div>
   {if $summThumb}
       <div class="resultImage">
-          <a class="title imagePopup" data-id="{$summId|escape:"url"}" href="{$path}/AJAX/JSON?method=getImagePopup&amp;id={$summId|escape:"url"}&amp;isn={$summISBN|escape:"url"}" id="thumbnail_link_{$summId|escape:"url"}" rel="gallery">
+          <a class="title imagePopup" data-id="{$summId|escape:"url"}" href="{$path}/AJAX/JSON?method=getImagePopup&amp;id={$summId|escape:"url"}&amp;isn={$summISBN|escape:"url"}" id="thumbnail_link_{$summId|escape:"url"}">
               <img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}" />
           </a>
       </div>
