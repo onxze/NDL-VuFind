@@ -37,6 +37,16 @@
 	background-repeat:no-repeat;
 	background-position:8px -272px;
 }
+.loginNotification {
+	background-image: url("../images/icons16-24px-02_black.png");
+	background-repeat:no-repeat;
+	background-position:8px -2575px;
+}
+#headerMenu > #loginDetails > a > span {
+	background-image: url("../images/icons16-24px-02_white.png");	
+	background-position:0px -2574px;
+	padding-left:25px;
+}
 
 /* Common: Buttons */
 
@@ -289,9 +299,9 @@ a.clear_input {
 /* Main: Result header */
 
 .available:before, .availableLoc:before {
-    background-image: url(../images/icons16-24px-03_green.png);
+    background-image: url("../images/icons16-24px-03_green.png");
 }
-.availableLocWWW:before {
+.availableLocWWW:before, .primoCentral .availableOpenURL:before {
     background-image: url("../images/icons16-24px-01_turquoise.png");
 }
 #recordMetadata .available:before {
@@ -309,8 +319,25 @@ a.clear_input {
 .availableLoc:before {
     background-position: 1px -1439px;
 }
-.availableLocWWW:before {
+.availableLocWWW:before, .primoCentral .availableOpenURL:before {
     background-position: 0 -779px;
+}
+.availableLocWWW.pdf:before {
+	background:none;
+	padding:0px;
+	height:0px;
+	width:0px;	
+}
+.availableLocWWW.pdf, .resultContentList.pciLink a.pdf {
+	background-position: 0px;
+	background: url("../images/pdf.png")no-repeat right;
+	display: inline-block;
+	padding-right: 50px;
+	line-height: 1em;
+	padding-top: 0px;
+}
+.resultContentList.pciLink a.html:not(.pdf):after, .module-PCI .availableOpenURL:after {
+		content: 'html';
 }
 .checkedout:before, .checkedoutLoc:before {
     background-image: url(../images/icons16-24px-03_red.png);
@@ -579,7 +606,7 @@ span.dynatree-expander:hover {
 #recordMetadata .moreLink a:after, #recordMetadata .lessLink a:after,
 .module-Browse .moreinfo .moreLink a:after, .module-Browse .moreinfo .lessLink a:after,
 .module-MetaLib #recentMetalibDatabases .moreLink a:after, .module-MetaLib #recentMetalibDatabases .lessLink a:after,
-.openWindow,#browseExtended li.result .moreinfo .recordLink {
+.openWindow,#browseExtended li.result .moreinfo .recordLink, .pciRecordDesc .moreLink a:after, .pciRecordDesc .lessLink a:after {
     background-image: url(../images/icons16-24px-02_turquoise.png);
 }
 .mailRecord.mail {
@@ -621,13 +648,13 @@ span.dynatree-expander:hover {
 .coverImages .moreLink a:after,
 .module-Browse .moreinfo .moreLink a:after,
 .module-MetaLib #recentMetalibDatabases .moreLink a:after,
-#recordMetadata .moreLink a:after {
+#recordMetadata .moreLink a:after, .module-PCI .moreLink a:after {
     background-position: 2px -2318px;
 }
 .coverImages .lessLink a:after,
 .module-Browse .moreinfo .lessLink a:after,
 .module-MetaLib #recentMetalibDatabases .lessLink a:after,
-#recordMetadata .lessLink a:after {
+#recordMetadata .lessLink a:after, .module-PCI .lessLink a:after {
     background-position: 2px -2270px;
 }
 .openWindow {

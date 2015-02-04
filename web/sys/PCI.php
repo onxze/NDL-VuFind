@@ -376,13 +376,20 @@ EOD;
 
         // Back links sometimes contain non-valid XML and thus cannot
         // be treated like source links
+
         $backlinkString = (string)$primoRecord->PrimoNMBib->record->links->backlink;
         $ini = strripos($backlinkString, '$$U');
+
         if ($ini !== false) {
+
             $ini +=3;
+
             $backlinkArray = explode('$$', substr($backlinkString, $ini));
+
             if ($backlinkArray[0]) {
+
                 $backlink = $backlinkArray[0];
+
             }
         }
 
@@ -433,7 +440,7 @@ EOD;
             'ISSN' => (string)$primoRecord->PrimoNMBib->record->search->issn,
             'language' => (string)$primoRecord->PrimoNMBib->record->facets->language,
             'subjectTerms' => (array)$primoRecord->PrimoNMBib->record->search->subject,
-            'snippet' => (string)$primoRecord->PrimoNMBib->record->display->description,
+            'snippet' => $this->hiLite((string)$primoRecord->PrimoNMBib->record->display->description),
             'volume' => (string)$primoRecord->PrimoNMBib->record->addata->volume,
             'issue' => (string)$primoRecord->PrimoNMBib->record->addata->issue,
             'startPage' => '',

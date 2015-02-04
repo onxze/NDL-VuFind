@@ -4,7 +4,34 @@
   {* Display Title *}
   <h1 class="recordTitle">{$record.title|escape:"html"}</h1>
   {* End Title *}
+{assign var="idPrefix" value=$id|substr:0:8}
+    {if !empty($record.url) || $record.openUrl || $idPrefix == 'metalib_'}
+    <div valign="top" class="recordURLs primoCentral">
 
+
+        {foreach from=$record.url item=currentUrl name=loop}
+          <a href="{$currentUrl|proxify|escape}" target="_blank" class="availableLocWWW">{$currentUrl|escape}</a><br/>
+        {/foreach}
+        {if $record.openUrl}
+          {include file="Search/openurl.tpl" openUrl=$record.openUrl}
+          {include file="Search/rsi.tpl"}
+          {include file="Search/openurl_autocheck.tpl"}
+        {/if}
+        {if $idPrefix == 'metalib_'}
+          <span class="metalib_link">
+            <span id="metalib_link_{$id|escape}" class="hide"><a href="{$path}/MetaLib/Home?set=_ird%3A{$id|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a></span>
+            <span id="metalib_link_na_{$id|escape}" class="hide">{translate text='metalib_not_authorized_single'}<br/></span>
+          </span>
+        {/if}
+    </div>
+    {/if}
+{if $record.snippet}
+    <p class="recordDescription">
+            <div class="recordSummary truncateField pciRecordDesc">
+                {$record.snippet}
+            </div>
+       </p>
+    {/if}
   {* Display Main Details *}
   <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Bibliographic Details'}">
     <tr valign="top" class="recordAuthors">
@@ -20,16 +47,7 @@
         </div>
       </td>
     </tr>
-    {if $record.snippet}
-    <tr valign="top" class="recordDescription">
-        <th>{translate text='Description'}: </th>
-        <td>
-            <div class="truncateField">
-                {$record.snippet}
-            </div>
-        </td>
-    </tr>
-    {/if}
+    
     {if !empty($record.format)}
     <tr valign="top" class="recordFormat">
       <th>{translate text='Format'}: </th>
@@ -74,28 +92,7 @@
       </td>
     </tr>
     {/if}
-    {assign var="idPrefix" value=$id|substr:0:8}
-    {if !empty($record.url) || $record.openUrl || $idPrefix == 'metalib_'}
-    <tr valign="top" class="recordURLs">
-      <th>{translate text='Online Access'}: </th>
-      <td>
-        {foreach from=$record.url item=currentUrl name=loop}
-          <a href="{$currentUrl|proxify|escape}" target="_blank">{$currentUrl|escape}</a><br/>
-        {/foreach}
-        {if $record.openUrl}
-          {include file="Search/openurl.tpl" openUrl=$record.openUrl}
-          {include file="Search/rsi.tpl"}
-          {include file="Search/openurl_autocheck.tpl"}
-        {/if}
-        {if $idPrefix == 'metalib_'}
-          <span class="metalib_link">
-            <span id="metalib_link_{$id|escape}" class="hide"><a href="{$path}/MetaLib/Home?set=_ird%3A{$id|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a></span>
-            <span id="metalib_link_na_{$id|escape}" class="hide">{translate text='metalib_not_authorized_single'}<br/></span>
-          </span>
-        {/if}
-      </td>
-    </tr>
-    {/if}
+    
     
     {if !empty($record.source)}
     <tr valign="top" class="recordSource">
@@ -125,6 +122,8 @@
       </td>
     </tr>
     {/if}
+
+    <!-- Disable tags for now
     <tr valign="top" class="recordTags">
       <th>{translate text='Tags'}: </th>
       <td>
@@ -142,10 +141,15 @@
         </div>
       </td>
     </tr>
+    -->
   </table>
   {* End Main Details *}
 </div>
-
+    {if $record.openUrl}<div class="hideavailableUrls">
+          {include file="Search/openurl.tpl" openUrl=$record.openUrl}
+          {include file="Search/rsi.tpl"}
+          {include file="Search/openurl_autocheck.tpl"}</div>
+        {/if}
 <div class="span-4 last">
 
   {* Display the lists that this record is saved to *}

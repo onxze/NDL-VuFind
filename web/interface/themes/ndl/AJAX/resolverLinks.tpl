@@ -6,7 +6,7 @@
         {foreach from=$electronic item=link}
           <li>
             {if $link.href}
-              <a class="availableOpenURL" href="{$link.href|escape}" title="{$link.service_type|escape}" target="_blank">{$link.title|escape}</a> {$link.coverage|escape}
+              <a class="availableOpenURL html" href="{$link.href|escape}" title="{$link.service_type|escape}" target="_blank"></a> {$link.coverage|escape}
             {else}
               {$link.title|escape} {$link.coverage|escape}
             {/if}

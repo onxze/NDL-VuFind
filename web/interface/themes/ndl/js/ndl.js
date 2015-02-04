@@ -14,7 +14,8 @@ $(document).ready(function() {
     initScrollMenu();
     initContextHelp();
     initCoverImageTruncateLink();
-    init480Mobile()
+    init480Mobile();
+    initFormatSeeker();
 });
 
 // Header menu
@@ -485,4 +486,11 @@ function init480Mobile() {
     } else {
         $("#480mobileSecond #move480mobile").appendTo("#480mobileFirst" );
     }
+}
+
+function initFormatSeeker() {
+    $('.pciLink a[href$=".pdf"],.pciLink a[href*="Download"]').addClass("pdf");
+    $(".pciLink a.html.fulltextlink").text("html");
+    $(".pciLink a.pdf.fulltextlink").text("pdf");
+    $(".openurls .availableOpenURL").text("html");
 }

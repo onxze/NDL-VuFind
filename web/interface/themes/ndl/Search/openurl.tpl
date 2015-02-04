@@ -20,5 +20,11 @@ class="fulltext openUrlWindow window_settings:{$openUrlWindow|escape}"
 {if $openUrlEmbed}
   <div id="openUrlEmbed{$openUrlId}" class="resolver hide">{translate text='Loading data...'}</div>
 {/if}
-
+{literal}
+<script>
+  $(document).ready(function() {
+    initFormatSeeker();
+  });
+</script>
+{/literal}
 <!-- END of: Search/openurl.tpl -->

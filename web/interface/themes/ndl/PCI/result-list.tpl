@@ -1,6 +1,6 @@
 <!-- START of: PCI/result-list.tpl -->
 <div class="result recordId" id="record{$record.id|escape:"html"}">
-  <div class="resultColumn1">
+  <!-- <div class="resultColumn1">
     <div class="coverDiv">
 
       {* Multiple images *}
@@ -24,14 +24,15 @@
       <div class="resultNoImage format{$record.format|lower|regex_replace:"/[^a-z0-9]/":""} format{$record.format|lower|regex_replace:"/[^a-z0-9]/":""}"></div>
     </div> 
 
-  </div>
-  
+  </div> -->
+
   <div class="resultColumn2 grid_11">
     <div class="resultItemLine1">
       <a href="{$url}/PCI/Record?id={$record.id|escape:"url"}"
-         class="title">{if !$record.title}{translate text='Title not available'}{else}{$record.title|highlight}{/if}</a>
+         class="title">{if !$record.title}{translate text='Title not available'}{else}{$record.title|highlight}{/if}</a>    
+        <div class="resultItemFormat"><span class="iconlabel format{$record.format|lower|regex_replace:"/[^a-z0-9]/":""} format{$record.format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$record.format prefix='format_PCI_'}</span>
     </div>
-    <div class="resultItemFormat"><span class="iconlabel format{$record.format|lower|regex_replace:"/[^a-z0-9]/":""} format{$record.format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$record.format prefix='format_PCI_'}</span>
+
     </div>
     <div class="resultItemLine2">
       {if !empty($record.author.0)}
@@ -44,34 +45,17 @@
     </div>
     <div class="resultItemLine3">
       {if !empty($record.publicationTitle)}{translate text='Published in'}: {$record.publicationTitle|escape}{/if}
-    </div>
-    {if $record.url || $record.openUrl}
-    <div class="resultItemLine4">
-      {if $record.url || $record.fulltext != 'no_fulltext'}
-      {if $record.url|@count > 2}
-      <p class="resultContentToggle"><a href="#" class="toggleHeader">{translate text='available_online'}<img src="{path filename="images/down.png"}" width="11" height="6" alt="" /></a></p>
-      {else}
-      <p class="resultContentToggle">{translate text='available_online'}<img src="{path filename="images/down.png"}" width="11" height="6" alt="" /></p>
-            {/if}    
-      <div class="resultContentList">
-        <ul>
-          {foreach from=$record.url item=recordLink}
-          <li><a target="_blank" href="{$recordLink|proxify|escape}">{$recordLink|escape:"html"|truncate:60:"...":true:true}</a><br />
-        {/foreach}
-        </ul>
-        {if $record.openUrl}
-        {include file="Search/openurl.tpl" openUrl=$record.openUrl}
-      {/if}  
-      </div>
-      {else}
+   {if $record.snippet}         
+     <div class="truncateField pciRecordDesc">{$record.snippet|highlight}</div>
+   {/if}
+      <div class="hideavailableUrls">
       {if $record.openUrl}
-      {include file="Search/openurl.tpl" openUrl=$record.openUrl}
-    {/if}              
-    {/if}  
+            {include file="Search/openurl.tpl" openUrl=$record.openUrl}
+          {/if}  
+      </div>
     </div>
-    {/if}    
-
-    {if !$ownList}
+  
+  {if !$ownList}
     {* Display the lists that this record is saved to *}
     <div class="savedLists info hide" id="savedLists{$record.id|escape}">
       <strong>{translate text="Saved in"}:</strong>
@@ -83,6 +67,29 @@
       <p class="text">{$listNotes|escape:'html'}</p>
     </div>
   {/if}
+  </div>
+  <div class="linkstoPCI grid_3">
+      <div class="testiPCI">
+    {if $record.url || $record.openUrl}
+      <div class="pciResultLinks">
+      {if $record.url || $record.fulltext != 'no_fulltext'} 
+        <h5>Kokotekstit</h5> 
+        <div class="pciLink">
+          {foreach from=$record.url item=recordLink}
+          <a target="_blank" href="{$recordLink|proxify|escape}" class="html fulltextlink">HTML</a>
+          {/foreach}
+          {if $record.openUrl}
+            {include file="Search/openurlPCI.tpl" openUrl=$record.openUrl}
+          {/if}  
+        </div>
+      {else}
+        {if $record.openUrl}
+         {include file="Search/openurlPCI.tpl" openUrl=$record.openUrl}
+        {/if}              
+      {/if}  
+      </div>
+    {/if}
+    </div>
   </div>
 
   <div class="last addToFavLink">

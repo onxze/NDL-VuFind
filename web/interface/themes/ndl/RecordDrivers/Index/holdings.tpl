@@ -488,6 +488,8 @@ $(document).ready(function() {
 
   initJumpMenus();
   
+  initScrollAfterLoading();
+  
 });
 </script>
 {/literal}

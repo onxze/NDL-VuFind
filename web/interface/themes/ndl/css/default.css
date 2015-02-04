@@ -111,7 +111,7 @@ input[type="submit"] {
 /*** work-in-progress disclaimer ***/
 .w-i-p, .ie {
     width: 100%;
-    padding: .1em 0;
+    padding: .2em 0;
     text-align: center;
     background-color: #fffec6;
     border-top: 2px solid #ffeb7c;
@@ -1276,6 +1276,20 @@ div.truncateField {
 .module-Browse .moreinfo .truncateField,
 #recordMetadata .truncateField {
     margin-top: .25em;
+}
+.pciRecordDesc {
+	color: rgb(116, 116, 116);
+	font-size: 1.05em;
+	line-height: 1.3em;
+	text-align:justify;
+	margin-top:5px;	
+}
+.pciRecordDesc .moreLink a:after, .pciRecordDesc .lessLink a:after {
+	content:'';
+	width:15px;
+	height:15px;
+	display:inline-block;
+	margin-top:2px;	
 }
 
 .module-MetaLib #recentMetalibDatabases .moreLink,
@@ -2548,9 +2562,13 @@ margin-top: -54px;
 
 /*** Login Notification for PCI and MetaLib ***/
 .loginNotification {
-    background: #edf3f6;
-    padding: 10px 15px;
-    margin-bottom: 20px; 
+	background: #edf3f6;
+	padding: 10px 15px;
+	margin-bottom: 20px;
+	font-weight: 500;
+	padding-left: 38px;
+	min-height: 40px;
+	vertical-align: middle;
 } 
 .module-MetaLib .no-hits.no-search .loginNotification p:first-child {
     font-size: 1.2em;
@@ -2633,6 +2651,11 @@ ul.recordSet .resultColumn1 {
 ul.recordSet .resultColumn2 {
     float: left;
     margin-left: 15px;
+}
+
+/* Removed image section from PCI, fixed margin */
+.module-PCI ul.recordSet .resultColumn2 {
+    margin-left: 0px;
 }
 /*  Widen space of record information in search results. Doesn't have to change grid settings in all layouts    */
 .content .resultColumn2.grid_11 {
@@ -2778,6 +2801,9 @@ li.result blockquote {
     margin: 6px 0 0;
     font-weight: 500;
 }
+.module-PCI .resultContentToggle {
+	font-size:1.2em;	
+}
 .resultContentToggle img {
     margin: 0 0 1px 5px;
 }
@@ -2791,6 +2817,34 @@ li.result blockquote {
     background: url(../images/icons16-24px-03_green.png) no-repeat;
     background-position: 2px -1436px;
 }
+.resultContentList.pciLink {
+	margin-left:0px;	
+}
+.resultContentList.pciLink li {
+	padding-left:25px;
+	font-size:1.1em;
+	letter-spacing:0.2px;
+	background-image: url("../images/icons16-24px-01_turquoise.png");
+	background-position: 0 -779px;
+	padding-bottom:3px;
+}
+.linkstoPCI {
+	text-align: right;
+}
+.pciResultLinks .pciLink a {
+	word-wrap: break-word;
+	font-size: 17px;
+	font-weight: 500;
+}
+.truncateField.pciRecordDesc .moreLink {
+	background-color: #FFF;	
+}
+/*.resultContentList.pciLink li a, .primoCentral a {
+	list-style-type: none;
+	padding-left: 53px;
+	background: url(../images/pdf.png) no-repeat;
+	background-position: 0px;
+}*/
  .resultHierarchyLinks .hierarchyDesc {
     font-size: 0.75em;
 }
@@ -3802,7 +3856,7 @@ ul.recordSet .addToFavLink a {
     width: 11px;
     padding-left: 5px;
 }
-.availableLocWWW:before {
+.availableLocWWW:before, .primoCentral .availableOpenURL:before {
     content: "";
     display: block;
     float: left;
@@ -4624,7 +4678,7 @@ input.invalidField {
 }
 
 .mainYearFormContainer2 .mainYearFormPCI #mainYearFormSubmit {
-    margin-top: 3px;
+    margin-top: 0px;
 }
 
 #mainYearSeparator {
@@ -4654,6 +4708,7 @@ input.invalidField {
 .mainYearFormPCI input[type="submit"] {
     width: 32px;
     height: 23px;
+
 }
 
 .mainYearFormPCI input[type="submit"] {
@@ -4664,6 +4719,7 @@ input.invalidField {
 .mainYearFormContainer2 .mainYearForm #mainYearFormSubmit {
     float: left;
     padding-top: 0;
+		overflow:visible !important;
 }
 
 
@@ -4925,6 +4981,24 @@ div[id*="record"].record.recordId {
 
 #recordMetadata .recordURLs td[colspan="2"] {
     padding:0 0 10px 0;
+}
+.primoCentral {
+	margin-top:5px;
+	font-size: 1.1em;
+	letter-spacing: 0.2px;
+}
+.primoCentral a {
+	margin-bottom:3px;	
+}
+.primoCentral li {
+	clear:both;
+	margin-bottom:3px;
+}
+.primoCentral .openurl_more_full, .hideavailableUrls .availableOpenURL {
+	display:none;	
+}
+.hideavailableUrls .openurl_more_full {
+	margin-bottom:20px;	
 }
 
 /* Note: background colors required here for field truncation */
@@ -8105,9 +8179,18 @@ span#showDate {
     padding-right: 5px;
 }
 
+.resultItemLine1 .title {
+	float: left;
+	max-width: 85%;
+}
+div.resultItemFormat {
+	clear: both;	
+}
+.testiPCI .openurl_more_full {
+	display:none !important;	
+}
 
-/* Testing animation */
-/* overlay at start */
+
 .mfp-fade.mfp-bg {
   opacity: 0;
 
@@ -8127,7 +8210,6 @@ span#showDate {
 /* content at start */
 .mfp-fade.mfp-wrap .mfp-content {
   opacity: 0;
-
   -webkit-transition: all 0.15s ease-out;
   -moz-transition: all 0.15s ease-out;
   transition: all 0.15s ease-out;
