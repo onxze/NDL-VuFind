@@ -7,8 +7,7 @@
       <div class="resultImage">
         <a class="title imagePopup" data-id="{$record.ID.0|escape:"url"}"
            href="{$path}/AJAX/JSON?method=getImagePopup&amp;id={$record.ID.0|escape:"url"}" 
-          id="thumbnail_link_{$record.ID.0|escape:"url"}" 
-          rel="gallery">
+          id="thumbnail_link_{$record.ID.0|escape:"url"}">
           <img src="{$path}/bookcover.php?size=small{if $record.ISBN.0}&amp;isn={$record.ISBN.0|@formatISBN}{/if}{if $record.ContentType.0}&amp;contenttype={$record.ContentType.0|escape:"url"}{/if}" class="summcover" alt="{translate text="Cover Image"}"/>
         </a>
       </div>

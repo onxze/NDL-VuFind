@@ -122,7 +122,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           </div>
         {/if}
         
-        {if $coreThumbLarge}{if $img_count > 1}<a class="title imagePopup-trigger" id="thumbnail_link" href="{$path}/AJAX/JSON?method=getImagePopup&amp;id={$id|escape:"url"}{if $isbn}&amp;isn={$isbn|escape:"url"}{/if}&amp;index=0&amp;size=large"><span></span>{else}<a data-id="{$id|escape:"url"}" class="imagePopup" href="{$path}/AJAX/JSON?method=getImagePopup&amp;id={$id|escape:"url"}{if $isbn}&amp;isn={$isbn|escape:"url"}{/if}&amp;index=0&amp;size=large" rel="gallery">{/if}{/if}
+        {if $coreThumbLarge}{if $img_count > 1}<a class="title imagePopup-trigger" id="thumbnail_link" href="{$path}/AJAX/JSON?method=getImagePopup&amp;id={$id|escape:"url"}{if $isbn}&amp;isn={$isbn|escape:"url"}{/if}&amp;index=0&amp;size=large"><span></span>{else}<a data-id="{$id|escape:"url"}" class="imagePopup" href="{$path}/AJAX/JSON?method=getImagePopup&amp;id={$id|escape:"url"}{if $isbn}&amp;isn={$isbn|escape:"url"}{/if}&amp;index=0&amp;size=large">{/if}{/if}
         <span></span><img id="thumbnail" alt="{translate text="Cover Image"}" class="recordcover" src="{$coreThumbMedium|escape}" style="padding:0" />
         {if $coreThumbLarge}</a>
         {js filename="init_image_popup.js"}

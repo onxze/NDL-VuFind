@@ -45,6 +45,8 @@ class JSON extends Action
     const STATUS_ERROR = 'ERROR';            // bad
     const STATUS_NEED_AUTH = 'NEED_AUTH';    // must login first
 
+    const REFERENCE_DESK_STATUS = 'On Reference Desk';
+
     /**
      * Constructor.
      *
@@ -1069,54 +1071,69 @@ class JSON extends Action
         $isHoldable = false;
 
         foreach ($holdings as $location) {
-            if (is_array($location) && isset($location['status'])) {
-                if (isset($location['status']['reservations'])
-                    && $location['status']['reservations'] > $requestCount
-                ) {
-                    $requestCount = $location['status']['reservations'];
-                }
-                if (isset($location['status']['available'])
-                    && $location['status']['available']
-                ) {
-                    $availableLocationCount++;
-                }
-                if (isset($location['status']['availableCount'])
-                    && $location['status']['availableCount'] > 0
-                ) {
-                    $availableCount += $location['status']['availableCount'];
-                }
-                if (isset($location['status']['text'])
-                    && $location['status']['text'] != ''
-                    && $closestDueDate == ''
-                ) {
-                    $itemStatusText = $location['status']['text'];
-                }
-                if (isset($location['status']['dueDateStamp'])
-                    && $location['status']['dueDateStamp'] != ''
-                    && isset($location['status']['closestDueDate'])
-                    && $location['status']['closestDueDate'] != ''
-                ) {
-                    $dueDate = $location['status']['dueDateStamp'];
-                    if ($closestDueDateStamp < $dueDate) {
-                        $closestDueDate = $location['status']['closestDueDate'];
+            if (is_array($location)) {
+                $journal = isset($location['journal']) && $location['journal'];
+
+
+                if (isset($location['status'])) {
+                    if (isset($location['status']['reservations'])
+                        && $location['status']['reservations'] > $requestCount
+                    ) {
+                        $requestCount = $location['status']['reservations'];
+                    }
+                    if (isset($location['status']['available'])
+                        && $location['status']['available']
+                    ) {
+                        $availableLocationCount++;
+                    }
+
+                    if (isset($location['status']['availableCount'])
+                        && $location['status']['availableCount'] > 0
+                    ) {
+                        $availableCount += $location['status']['availableCount'];
+                    }
+                    
+                    if ($journal) {
                         if (isset($location['status']['text'])
-                            && $location['status']['text'] != ''
+                            && trim($location['status']['text']) === JSON::REFERENCE_DESK_STATUS
                         ) {
-                            $itemStatusText = $location['status']['text'];
+                            $availableCount++;                            
                         }
                     }
-                }
-                $locationCount++;
-            }
-            if (is_array($location)) {
-                if (isset($location['journal']) && $location['journal']) {
-                    $journal = true;
+                    if (isset($location['status']['text'])
+                        && $location['status']['text'] != ''
+                        && $closestDueDate == ''
+                    ) {
+                        $itemStatusText = $location['status']['text'];
+                    }
+                    if (isset($location['status']['dueDateStamp'])
+                        && $location['status']['dueDateStamp'] != ''
+                        && isset($location['status']['closestDueDate'])
+                        && $location['status']['closestDueDate'] != ''
+                    ) {
+                        $dueDate = $location['status']['dueDateStamp'];
+                        if ($closestDueDateStamp < $dueDate) {
+                            $closestDueDate = $location['status']['closestDueDate'];
+                            if (isset($location['status']['text'])
+                                && $location['status']['text'] != ''
+                            ) {
+                                $itemStatusText = $location['status']['text'];
+                            }
+                        }
+                    }
+                    $locationCount++;
                 }
                 if (is_array($location['holdings'])) {
                     foreach ($location['holdings'] as $holding) {
                         if (isset($holding['total'])) {
                             $itemCount += $holding['total'];
-                        }
+                        }                        
+                        if (!$journal 
+                            && isset($holding['status']) 
+                            && trim($holding['status']) === JSON::REFERENCE_DESK_STATUS
+                        ) {
+                            $availableCount++;
+                        } 
                         $branchCount++;
                     }
                 }
@@ -1149,7 +1166,7 @@ class JSON extends Action
         $interface->assign('locationThreshold', $locationThreshold);
         $interface->assign('branchThreshold', $branchThreshold);
         $interface->assign('journal', $journal);
-
+        $interface->assign('referenceDeskStatus', JSON::REFERENCE_DESK_STATUS);
         $db = ConnectionManager::connectToIndex();
         if (!($record = $db->getRecord($id))) {
             PEAR::raiseError(new PEAR_Error('Record Does Not Exist'));

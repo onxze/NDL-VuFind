@@ -7946,6 +7946,17 @@ div.commentDetails > * {
 .mfp-wrap {
 	z-index: 20001;	
 }
+.mfp-container .mfp-arrow-right.touchDevice {
+    right:0px;
+    opacity: 0.8;
+    transition-delay: 0;
+}
+.mfp-container .mfp-arrow-left.touchDevice {
+    left:0px;
+    opacity: 0.8;
+    transition-delay: 0;
+}
+
 
 @media all and (max-width:1170px) {
     .imagePopupHolder .image {
