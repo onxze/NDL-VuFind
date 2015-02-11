@@ -907,7 +907,14 @@ class VoyagerRestful extends Voyager
 
         // Send Request and Retrieve Response
         $startTime = microtime(true);
-        $client->sendRequest();
+        if (PEAR::isError($client->sendRequest())) {
+            error_log("VoyagerRestful: failed to send request to $urlParams");
+            return false;
+        }
+        $code = $client->getResponseCode();
+        if ($code >= 400) {
+            error_log("VoyagerRestful: HTTP Request failed with error code $code. Request url: $urlParams, response: " . $client->getResponseBody());
+        }
         $cookies = $client->getResponseCookies();
         if ($cookies) {
             foreach ($cookies as $cookie) {
