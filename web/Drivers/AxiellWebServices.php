@@ -1407,7 +1407,7 @@ class AxiellWebServices implements DriverInterface
             $result = $client->$function($params);
 
             if ($this->durationLogPrefix) {
-                file_put_contents($this->durationLogPrefix . '_' . $function . '.log', round(microtime(true) - $startTime, 4) . "\n", FILE_APPEND);
+                file_put_contents($this->durationLogPrefix . '_' . $function . '.log', date('Y-m-d H:i:s ') . round(microtime(true) - $startTime, 4) . "\n", FILE_APPEND);
             }
 
             $statusAWS = $result->$functionResult->status;
@@ -1474,6 +1474,8 @@ class AxiellWebServices implements DriverInterface
             'InvalidPinCode'         => 'authentication_error_invalid',
             'InvalidBorrCard'        => 'authentication_error_invalid',
             'BackendError'           => 'catalog_connection_failed',
+            'LocalServiceTimeout'    => 'catalog_connection_failed',
+            'DatabaseError'          => 'catalog_connection_failed',
             'ReservationDenied'      => 'hold_error_blocked',
             'BlockedBorrCard'        => 'catalog_connection_patron_blocked',
 

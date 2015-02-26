@@ -35,7 +35,7 @@
       <div class="recordLink"><a href="{$url}">{translate text="To the record"}</a></div>
       <div class="imageRights">
         <div class="rights">
-          <span>{translate text="Image Rights"}:</span> <a target="_blank" href="{$copyrightLink}">{$copyright}</a>
+          <span>{translate text="Image Rights"}:</span> {if $copyrightLink}<a target="_blank" href="{$copyrightLink}">{/if}{$copyright}{if $copyrightLink}</a>{/if}
         </div>
         {if $copyrightDescription}
         <div class="moreLink copyrightLink"><a data-mode="1" href="">Lisää</a></div>
