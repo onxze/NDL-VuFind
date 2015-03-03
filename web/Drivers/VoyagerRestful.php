@@ -907,7 +907,14 @@ class VoyagerRestful extends Voyager
 
         // Send Request and Retrieve Response
         $startTime = microtime(true);
-        $client->sendRequest();
+        if (PEAR::isError($client->sendRequest())) {
+            error_log("VoyagerRestful: failed to send request to $urlParams");
+            return false;
+        }
+        $code = $client->getResponseCode();
+        if ($code >= 400) {
+            error_log("VoyagerRestful: HTTP Request failed with error code $code. Request url: $urlParams, response: " . $client->getResponseBody());
+        }
         $cookies = $client->getResponseCookies();
         if ($cookies) {
             foreach ($cookies as $cookie) {
@@ -926,6 +933,7 @@ class VoyagerRestful extends Voyager
         if ($simpleXML === false) {
             $logger = new Logger();
             $error = libxml_get_last_error();
+            error_log('VoyagerRestful: Failed to parse response XML: ' . $error->message . ", response:\n" . $xmlResponse);
             $logger->log('Failed to parse response XML: ' . $error->message . ", response:\n" . $xmlResponse, PEAR_LOG_ERR);
             $this->debugLog('Failed to parse response XML: ' . $error->message . ", response:\n" . $xmlResponse);
             return false;
@@ -1986,11 +1994,13 @@ EOT;
         $results = $this->makeRequest($hierarchy, $params);
 
         if ($results === false) {
+            error_log("VoyagerRestful: System error fetching loans (empty response)");
             return new PEAR_Error('System error fetching loans');
         }
 
         $replyCode = (string)$results->{'reply-code'};
         if ($replyCode != 0 && $replyCode != 8) {
+            error_log("VoyagerRestful: System error fetching loans: " . $results->asXML());
             return new PEAR_Error('System error fetching loans');
         }
         if (isset($results->loans->institution)) {
